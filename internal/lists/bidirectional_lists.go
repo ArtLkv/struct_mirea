@@ -1,6 +1,9 @@
 package lists
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Будет реализован вариант 1
 func RunBidirectionalLists() {
@@ -21,12 +24,15 @@ func runTask() {
 	A := NewDoubleLinkedList()
 	// [Номер зачетной книжки], [Группа, оценка]
 	gradeBook := NewGradeBook(A)
+
+	// Добавляем стартовые значения
 	A.Push("[[1], [31, 5]]")
-	A.Push("[[2], [27, 4]]")
+	A.Push("[[2], [27, 2]]")
 	A.Push("[[5], [1, 3]]")
 	A.Push("[[4], [15, 5]]")
 	fmt.Print("\n'A' изначальный: ")
 	A.PrintSequence()
+
 	gradeBook.PushById("0")
 	fmt.Print("\n'A' с добавлением по ключу 0: ")
 	A.PrintSequence()
@@ -37,6 +43,32 @@ func runTask() {
 	gradeBook.DeleteByGroup("15")
 	fmt.Print("\n'A' после удаления по 15 номеру группы: ")
 	A.PrintSequence()
+
+	B := NewDoubleLinkedList()
+	createNewDLLWithNegativeMarks(A, B)
+	gradeBook.DeleteByMark("2")
+	fmt.Println()
+	fmt.Print("\n'A' после удаления оценок 'неуд': ")
+	A.PrintSequence()
+	fmt.Print("\n'B' список с оценками 'неуд': ")
+	B.PrintSequence()
+}
+
+func createNewDLLWithNegativeMarks(from *DoubleLinkedList, to *DoubleLinkedList) {
+	node := from.firstElement
+	if node != nil {
+		for i := 0; i < from.length; i++ {
+			val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
+			el := strings.Split(val, ", ")
+			if el[2] == "2" { // "неуд" == 2
+				to.Push(fmt.Sprintf("[[%v], [%v, %v]]", el[0], el[1], el[2]))
+			}
+			if node.nextNode != nil {
+				node = node.nextNode
+			}
+		}
+	}
+
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)

@@ -51,7 +51,27 @@ func (gb *GradeBook) DeleteByGroup(group string) {
 		}
 	}
 }
-func (gb *GradeBook) CreateNewDLLWithNegativeMarks() {}
+
+// Метод, который удаляет все вхождения c той или иной оценкой
+func (gb *GradeBook) DeleteByMark(mark string) {
+	node := gb.dll.firstElement
+	count := 0
+	initialLength := gb.dll.length
+	if node != nil {
+		for i := 0; i < initialLength; i++ {
+			val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
+			el := strings.Split(val, ", ")
+			if el[2] == mark {
+				gb.dll.Remove(node, count, initialLength)
+				gb.dll.length -= 1
+			}
+			count += 1
+			if node.nextNode != nil {
+				node = node.nextNode
+			}
+		}
+	}
+}
 
 func NewGradeBook(dll *DoubleLinkedList) *GradeBook {
 	return &GradeBook{

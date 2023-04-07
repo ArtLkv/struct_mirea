@@ -89,8 +89,9 @@ func (dll *DoubleLinkedList) generateSequence() string {
 	seq := ""
 	if dll.direction == 0 {
 		if dll.firstElement != nil {
-			seq = seq + fmt.Sprintf("%s->", dll.firstElement.value)
+			seq = seq + dll.firstElement.value
 			if dll.firstElement.nextNode != nil {
+				seq = seq + "->"
 				node := dll.firstElement.nextNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
@@ -107,8 +108,9 @@ func (dll *DoubleLinkedList) generateSequence() string {
 		}
 	} else {
 		if dll.lastElement != nil {
-			seq = seq + fmt.Sprintf("%s<-", dll.lastElement.value)
+			seq = seq + dll.lastElement.value
 			if dll.lastElement.previousNode != nil {
+				seq = seq + "<-"
 				node := dll.lastElement.previousNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
