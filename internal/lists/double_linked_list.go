@@ -12,13 +12,13 @@ type DoubleLinkedList struct {
 
 // Cтруктура, которая хранит в себе состояние элемента DoubleLinkedList
 type DoubleLLNode struct {
-	value        int
+	value        string
 	nextNode     *DoubleLLNode
 	previousNode *DoubleLLNode
 }
 
 // Метод добавления DoubleLLNode
-func (dll *DoubleLinkedList) Push(value int) {
+func (dll *DoubleLinkedList) Push(value string) {
 	dll.length += 1
 	if dll.head == nil {
 		dll.head = dll.newNode(value, nil, nil)
@@ -41,7 +41,7 @@ func (dll *DoubleLinkedList) ChangeDirection() {
 }
 
 // Метод поиска DoubleLLNode, если DoubleLLNode найден то возвращается ссылка на него
-func (dll *DoubleLinkedList) Find(value int) *DoubleLLNode {
+func (dll *DoubleLinkedList) Find(value string) *DoubleLLNode {
 	if dll.head != nil {
 		if dll.head.value == value {
 			return dll.head
@@ -72,32 +72,36 @@ func (dll *DoubleLinkedList) generateSequence() string {
 	seq := ""
 	if dll.direction == 0 {
 		if dll.head != nil {
-			seq = seq + fmt.Sprintf("%v->", dll.head.value)
+			seq = seq + fmt.Sprintf("%s->", dll.head.value)
 			if dll.head.nextNode != nil {
 				node := dll.head.nextNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
-						seq = seq + fmt.Sprintf("%v", node.value)
+						seq = seq + node.value
 						if i+1 < dll.length {
 							seq = seq + "->"
 						}
-						node = node.nextNode
+						if node.nextNode != nil {
+							node = node.nextNode
+						}
 					}
 				}
 			}
 		}
 	} else {
 		if dll.tail != nil {
-			seq = seq + fmt.Sprintf("%v<-", dll.tail.value)
+			seq = seq + fmt.Sprintf("%s<-", dll.tail.value)
 			if dll.tail.previousNode != nil {
 				node := dll.tail.previousNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
-						seq = seq + fmt.Sprintf("%v", node.value)
+						seq = seq + node.value
 						if i+1 < dll.length {
 							seq = seq + "<-"
 						}
-						node = node.previousNode
+						if node.previousNode != nil {
+							node = node.previousNode
+						}
 					}
 				}
 			}
@@ -108,7 +112,7 @@ func (dll *DoubleLinkedList) generateSequence() string {
 }
 
 // Метод, которые олицетворяет собой конструктор DoubleLinkedList
-func (dll *DoubleLinkedList) newNode(value int, next *DoubleLLNode, previous *DoubleLLNode) *DoubleLLNode {
+func (dll *DoubleLinkedList) newNode(value string, next *DoubleLLNode, previous *DoubleLLNode) *DoubleLLNode {
 	return &DoubleLLNode{
 		previousNode: previous,
 		nextNode:     next,

@@ -3,8 +3,6 @@ package lists
 import (
 	"fmt"
 	"strings"
-
-	"github.com/ArtLkv/struct_mirea/pkg/utils"
 )
 
 // Cтруктура, которая хранит в себе состояние LinkedList
@@ -15,23 +13,22 @@ type LinkedList struct {
 
 // Cтруктура, которая хранит в себе состояние элемента LinkedList
 type LLNode struct {
-	value    int
+	value    string
 	nextNode *LLNode
 }
 
 // Метод добавления LLNode
-func (ll *LinkedList) Push(value int) {
+func (ll *LinkedList) Push(value string) {
 	ll.length += 1
 	temp := ll.newNode(value, ll.head)
 	ll.head = temp
 }
 
 // Метод поиска вхождений
-func (ll *LinkedList) IsFound(value int) bool {
+func (ll *LinkedList) IsFound(value string) bool {
 	seq := ll.generateSequence()
 	for _, el := range strings.Split(seq, "->") {
-		element := utils.ConvertStringToInt(el)
-		if element == value {
+		if el == value {
 			return true
 		}
 	}
@@ -67,7 +64,7 @@ func (ll *LinkedList) generateSequence() string {
 }
 
 // Метод, которые олицетворяет собой конструктор узла
-func (ll *LinkedList) newNode(value int, next *LLNode) *LLNode {
+func (ll *LinkedList) newNode(value string, next *LLNode) *LLNode {
 	return &LLNode{
 		nextNode: next,
 		value:    value,

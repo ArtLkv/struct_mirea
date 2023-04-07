@@ -18,22 +18,37 @@ func RunBidirectionalLists() {
 }
 
 func runTask() {
-	// A := NewDoubleLinkedList()
+	A := NewDoubleLinkedList()
+	// [Номер зачетной книжки], [Группа, оценка]
+	gradeBook := NewGradeBook(A)
+	A.Push("[[1], [31, 5]]")
+	A.Push("[[2], [15, 4]]")
+	A.Push("[[5], [1, 3]]")
+	A.Push("[[4], [27, 5]]")
+	fmt.Print("\n'A' изначальный: ")
+	A.PrintSequence()
+	gradeBook.Assign("0")
+	fmt.Print("\n'A' с добавлением по ключу 0: ")
+	A.PrintSequence()
+	gradeBook.Assign("4")
+	fmt.Print("\n'A' с добавлением по ключу 4: ")
+	A.PrintSequence()
+	fmt.Println()
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)
 func testDoubleLinkedList() {
 	first_dll := NewDoubleLinkedList()
 	// Проверяем, что список корректно генерируется
-	first_dll.Push(1)
-	first_dll.Push(2)
-	first_dll.Push(3)
-	first_dll.Push(4)
-	first_dll.Push(5)
+	first_dll.Push("1")
+	first_dll.Push("2")
+	first_dll.Push("3")
+	first_dll.Push("4")
+	first_dll.Push("5")
 	outputDoubleLinkedList(first_dll, 1)
 	// Проверяем, что поиск работает и корректно выводит указатель на элемент
-	findValue(first_dll, 4, 1)
-	findValue(first_dll, 3, 1)
+	findValue(first_dll, "4", 1)
+	findValue(first_dll, "3", 1)
 }
 
 func outputDoubleLinkedList(dll *DoubleLinkedList, listNumber int) {
@@ -44,7 +59,7 @@ func outputDoubleLinkedList(dll *DoubleLinkedList, listNumber int) {
 	dll.PrintSequence()
 }
 
-func findValue(dll *DoubleLinkedList, value int, listNumber int) {
+func findValue(dll *DoubleLinkedList, value string, listNumber int) {
 	fmt.Printf("\n\n(%v)Указатель на искомый элемент[со значением %v]: %p", listNumber, value, dll.Find(value))
 	fmt.Printf("\n(%v)Развернутый указатель на искомый элемент[со значением %v]: %+v", listNumber, value, dll.Find(value))
 }

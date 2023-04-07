@@ -20,4 +20,8 @@ Cуть алгоритма заключается в разделении мас
 
 ## В процессе
 ### Задача 7
+self = DoubleLinkedList
+i = DLLNode
+i[0] - DLLNode.value
+i[1] - Ссылка на DLLNode
 ### Задача 8
