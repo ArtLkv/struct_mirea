@@ -1,6 +1,8 @@
 package lists
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Cтруктура, которая хранит в себе состояние DoubleLinkedList
 type DoubleLinkedList struct {
@@ -32,22 +34,27 @@ func (dll *DoubleLinkedList) Push(value string) {
 }
 
 // Метод удаления DoubleLLNode
-func (dll *DoubleLinkedList) Remove(value string) {
-	count := 0
+// TODO: Repair Remove function
+func (dll *DoubleLinkedList) Remove(node *DoubleLLNode, index int) {
 	dll.length -= 1
-	node := dll.firstElement
-	dll.removeNode(node, value)
-	count += 1
 	if node != nil {
-		if node.nextNode != nil {
-			for i := 0; i < dll.length; i++ {
-				dll.removeNode(node, value)
-				if node.nextNode != nil {
-					node = node.nextNode
+		if count == index {
+			if index == 0 {
+				dll.firstElement = node.nextNode
+				node.nextNode.previousNode = nil
+			} else if index == dll.length-1 {
+				dll.lastElement = node.previousNode
+				node.previousNode.nextNode = nil
+			} else {
+				// fmt.Println(node)
+				if node.nextNode != nil && node.previousNode != nil {
+					node.previousNode.nextNode = node.nextNode
+					node.nextNode.previousNode = node.previousNode
 				}
-				count += 1
 			}
+			node = nil // Удаление ссылки на DoubleLLNode
 		}
+		count += 1
 	}
 }
 
@@ -129,11 +136,6 @@ func (dll *DoubleLinkedList) generateSequence() string {
 	}
 
 	return seq
-}
-
-// Вспомогательная функция
-func (dll *DoubleLinkedList) removeNode(node *DoubleLLNode, value string) {
-
 }
 
 // Метод, которые олицетворяет собой конструктор DoubleLinkedList

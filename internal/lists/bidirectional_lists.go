@@ -34,7 +34,9 @@ func runTask() {
 	fmt.Print("\n'A' с добавлением по ключу 4: ")
 	A.PrintSequence()
 	fmt.Println()
-	// gradeBook.DeleteByGroupName("15")
+	gradeBook.DeleteByGroup("15")
+	fmt.Print("\n'A' после удаления по 15 номеру группы: ")
+	A.PrintSequence()
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)
