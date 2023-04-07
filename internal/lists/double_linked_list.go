@@ -34,28 +34,18 @@ func (dll *DoubleLinkedList) Push(value string) {
 }
 
 // Метод удаления DoubleLLNode
-// TODO: Repair Remove function
-func (dll *DoubleLinkedList) Remove(node *DoubleLLNode, index int) {
-	dll.length -= 1
-	if node != nil {
-		if count == index {
-			if index == 0 {
-				dll.firstElement = node.nextNode
-				node.nextNode.previousNode = nil
-			} else if index == dll.length-1 {
-				dll.lastElement = node.previousNode
-				node.previousNode.nextNode = nil
-			} else {
-				// fmt.Println(node)
-				if node.nextNode != nil && node.previousNode != nil {
-					node.previousNode.nextNode = node.nextNode
-					node.nextNode.previousNode = node.previousNode
-				}
-			}
-			node = nil // Удаление ссылки на DoubleLLNode
-		}
-		count += 1
+func (dll *DoubleLinkedList) Remove(node *DoubleLLNode, index int, initialLength int) {
+	if index == initialLength-1 {
+		dll.lastElement = node.previousNode
+		node.previousNode.nextNode = nil
+	} else if index > 0 && index < dll.length {
+		node.nextNode.previousNode = node.previousNode
+		node.previousNode.nextNode = node.nextNode
+	} else if index == 0 {
+		dll.firstElement = node.nextNode
+		node.nextNode.previousNode = nil
 	}
+	node = nil // Удаление ссылки на DoubleLLNode
 }
 
 // Метод смены направления DoubleLinkedList

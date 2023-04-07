@@ -33,15 +33,20 @@ func (gb *GradeBook) PushById(key string) {
 
 // Метод, который удаляет все вхождения той или иной группы
 func (gb *GradeBook) DeleteByGroup(group string) {
-	count = 0
 	node := gb.dll.firstElement
+	count := 0
+	initialLength := gb.dll.length
 	if node != nil {
-		if node.nextNode != nil {
-			for i := 0; i < gb.dll.length; i++ {
-				gb.deleteElementByGroupName(node, group)
-				if node.nextNode != nil {
-					node = node.nextNode
-				}
+		for i := 0; i < initialLength; i++ {
+			val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
+			el := strings.Split(val, ", ")
+			if el[1] == group {
+				gb.dll.Remove(node, count, initialLength)
+				gb.dll.length -= 1
+			}
+			count += 1
+			if node.nextNode != nil {
+				node = node.nextNode
 			}
 		}
 	}
@@ -51,18 +56,6 @@ func (gb *GradeBook) CreateNewDLLWithNegativeMarks() {}
 func NewGradeBook(dll *DoubleLinkedList) *GradeBook {
 	return &GradeBook{
 		dll: dll,
-	}
-}
-
-// Вспомогательная функция
-func (gb *GradeBook) deleteElementByGroupName(node *DoubleLLNode, group string) {
-	if node != nil {
-		val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
-		el := strings.Split(val, ", ")
-		if el[1] == group {
-			gb.dll.Remove(node, count)
-		}
-		count += 1
 	}
 }
 

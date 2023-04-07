@@ -22,9 +22,9 @@ func runTask() {
 	// [Номер зачетной книжки], [Группа, оценка]
 	gradeBook := NewGradeBook(A)
 	A.Push("[[1], [31, 5]]")
-	A.Push("[[2], [15, 4]]")
+	A.Push("[[2], [27, 4]]")
 	A.Push("[[5], [1, 3]]")
-	A.Push("[[4], [27, 5]]")
+	A.Push("[[4], [15, 5]]")
 	fmt.Print("\n'A' изначальный: ")
 	A.PrintSequence()
 	gradeBook.PushById("0")
