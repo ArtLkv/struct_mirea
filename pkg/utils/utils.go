@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -65,4 +66,9 @@ func ReadTextFromFile(fileName string) string {
 		b.WriteString(scanner.Text())
 	}
 	return b.String()
+}
+
+func ConvertStringToInt(str string) int {
+	value, _ := strconv.Atoi(str)
+	return value
 }

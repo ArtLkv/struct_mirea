@@ -1,18 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/ArtLkv/struct_mirea/internal/algos"
+	"github.com/ArtLkv/struct_mirea/internal/lists"
 	"github.com/ArtLkv/struct_mirea/pkg/utils"
 )
 
 func main() {
 	args := os.Args[1:]
-	taskNumber, _ := strconv.Atoi(args[0]) // Получаем номер нужной нам задачи
-	sliceSize, _ := strconv.Atoi(args[1])  // Получаем размер массива, который мы хотим создать
+	taskNumber := utils.ConvertStringToInt(args[0]) // Получаем номер нужной нам задачи
+	sliceSize := utils.ConvertStringToInt(args[1])  // Получаем размер массива, который мы хотим создать
 
 	slice := utils.GenerateRandomSlice(sliceSize)
 	switch taskNumber {
@@ -33,8 +32,8 @@ func main() {
 	case 6:
 		algos.RunStringSearch()
 	case 7:
-		fmt.Println(7)
+		lists.RunUnidirectionalLists()
 	case 8:
-		fmt.Println(8)
+		lists.RunBidirectionalLists()
 	}
 }
