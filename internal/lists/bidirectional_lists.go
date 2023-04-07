@@ -27,13 +27,14 @@ func runTask() {
 	A.Push("[[4], [27, 5]]")
 	fmt.Print("\n'A' изначальный: ")
 	A.PrintSequence()
-	gradeBook.Assign("0")
+	gradeBook.PushById("0")
 	fmt.Print("\n'A' с добавлением по ключу 0: ")
 	A.PrintSequence()
-	gradeBook.Assign("4")
+	gradeBook.PushById("4")
 	fmt.Print("\n'A' с добавлением по ключу 4: ")
 	A.PrintSequence()
 	fmt.Println()
+	// gradeBook.DeleteByGroupName("15")
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)

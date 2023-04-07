@@ -4,10 +4,10 @@ import "fmt"
 
 // Cтруктура, которая хранит в себе состояние DoubleLinkedList
 type DoubleLinkedList struct {
-	length    int
-	direction int
-	head      *DoubleLLNode
-	tail      *DoubleLLNode
+	length       int
+	direction    int
+	firstElement *DoubleLLNode
+	lastElement  *DoubleLLNode
 }
 
 // Cтруктура, которая хранит в себе состояние элемента DoubleLinkedList
@@ -20,14 +20,34 @@ type DoubleLLNode struct {
 // Метод добавления DoubleLLNode
 func (dll *DoubleLinkedList) Push(value string) {
 	dll.length += 1
-	if dll.head == nil {
-		dll.head = dll.newNode(value, nil, nil)
-	} else if dll.tail == nil {
-		dll.tail = dll.newNode(value, nil, dll.head)
-		dll.head.nextNode = dll.tail
+	if dll.firstElement == nil {
+		dll.firstElement = dll.newNode(value, nil, nil)
+	} else if dll.lastElement == nil {
+		dll.lastElement = dll.newNode(value, nil, dll.firstElement)
+		dll.firstElement.nextNode = dll.lastElement
 	} else {
-		dll.tail = dll.newNode(value, nil, dll.tail)
-		dll.tail.previousNode.nextNode = dll.tail
+		dll.lastElement = dll.newNode(value, nil, dll.lastElement)
+		dll.lastElement.previousNode.nextNode = dll.lastElement
+	}
+}
+
+// Метод удаления DoubleLLNode
+func (dll *DoubleLinkedList) Remove(value string) {
+	count := 0
+	dll.length -= 1
+	node := dll.firstElement
+	dll.removeNode(node, value)
+	count += 1
+	if node != nil {
+		if node.nextNode != nil {
+			for i := 0; i < dll.length; i++ {
+				dll.removeNode(node, value)
+				if node.nextNode != nil {
+					node = node.nextNode
+				}
+				count += 1
+			}
+		}
 	}
 }
 
@@ -42,12 +62,12 @@ func (dll *DoubleLinkedList) ChangeDirection() {
 
 // Метод поиска DoubleLLNode, если DoubleLLNode найден то возвращается ссылка на него
 func (dll *DoubleLinkedList) Find(value string) *DoubleLLNode {
-	if dll.head != nil {
-		if dll.head.value == value {
-			return dll.head
+	if dll.firstElement != nil {
+		if dll.firstElement.value == value {
+			return dll.firstElement
 		}
-		if dll.head.nextNode != nil {
-			node := dll.head.nextNode
+		if dll.firstElement.nextNode != nil {
+			node := dll.firstElement.nextNode
 			for i := 0; i < dll.length; i++ {
 				if i+1 != dll.length-1 {
 					if node.value == value {
@@ -71,10 +91,10 @@ func (dll *DoubleLinkedList) PrintSequence() {
 func (dll *DoubleLinkedList) generateSequence() string {
 	seq := ""
 	if dll.direction == 0 {
-		if dll.head != nil {
-			seq = seq + fmt.Sprintf("%s->", dll.head.value)
-			if dll.head.nextNode != nil {
-				node := dll.head.nextNode
+		if dll.firstElement != nil {
+			seq = seq + fmt.Sprintf("%s->", dll.firstElement.value)
+			if dll.firstElement.nextNode != nil {
+				node := dll.firstElement.nextNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
 						seq = seq + node.value
@@ -89,10 +109,10 @@ func (dll *DoubleLinkedList) generateSequence() string {
 			}
 		}
 	} else {
-		if dll.tail != nil {
-			seq = seq + fmt.Sprintf("%s<-", dll.tail.value)
-			if dll.tail.previousNode != nil {
-				node := dll.tail.previousNode
+		if dll.lastElement != nil {
+			seq = seq + fmt.Sprintf("%s<-", dll.lastElement.value)
+			if dll.lastElement.previousNode != nil {
+				node := dll.lastElement.previousNode
 				for i := 0; i < dll.length; i++ {
 					if i+1 != dll.length-1 {
 						seq = seq + node.value
@@ -109,6 +129,11 @@ func (dll *DoubleLinkedList) generateSequence() string {
 	}
 
 	return seq
+}
+
+// Вспомогательная функция
+func (dll *DoubleLinkedList) removeNode(node *DoubleLLNode, value string) {
+
 }
 
 // Метод, которые олицетворяет собой конструктор DoubleLinkedList

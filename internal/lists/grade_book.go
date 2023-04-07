@@ -10,18 +10,18 @@ type GradeBook struct {
 }
 
 // Метод, который связывает ключ с GradeBook
-func (gb *GradeBook) Assign(key string) {
+func (gb *GradeBook) PushById(key string) {
 	isDone := false
-	node := gb.dll.head
+	node := gb.dll.firstElement
 	gb.dll.length += 1
-	gb.add(node, key, &isDone)
+	gb.addElementById(node, key, &isDone)
 	if node != nil {
 		if node.nextNode != nil {
 			for i := 0; i < gb.dll.length; i++ {
 				if isDone {
 					break
 				}
-				gb.add(node.nextNode, key, &isDone)
+				gb.addElementById(node.nextNode, key, &isDone)
 				if node.nextNode != nil {
 					node = node.nextNode
 				}
@@ -30,7 +30,11 @@ func (gb *GradeBook) Assign(key string) {
 	}
 
 }
-func (gb *GradeBook) DeleteByGroupName()             {}
+
+// Метод, который удаляет все вхождения той или иной группы
+func (gb *GradeBook) DeleteByGroup(key string) {
+
+}
 func (gb *GradeBook) CreateNewDLLWithNegativeMarks() {}
 
 func NewGradeBook(dll *DoubleLinkedList) *GradeBook {
@@ -39,7 +43,8 @@ func NewGradeBook(dll *DoubleLinkedList) *GradeBook {
 	}
 }
 
-func (gb *GradeBook) add(node *DoubleLLNode, key string, isDone *bool) {
+// Вспомогательная функция
+func (gb *GradeBook) addElementById(node *DoubleLLNode, key string, isDone *bool) {
 	if node != nil {
 		val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
 		el := strings.Split(val, ", ")
@@ -48,11 +53,11 @@ func (gb *GradeBook) add(node *DoubleLLNode, key string, isDone *bool) {
 		// Если такой ключ есть, то вставить перед первым узлом с таким же ключем
 		if el[0] == key && isContains {
 			if node.previousNode == nil {
-				newObj := gb.dll.newNode(gb.createValueByKey(key), node, nil)
+				newObj := gb.dll.newNode(gb.createValuesByKey(key), node, nil)
 				node.previousNode = newObj
-				gb.dll.head = newObj
+				gb.dll.firstElement = newObj
 			} else {
-				newObj := gb.dll.newNode(gb.createValueByKey(key), node, node.previousNode)
+				newObj := gb.dll.newNode(gb.createValuesByKey(key), node, node.previousNode)
 				node.previousNode.nextNode = newObj
 				node.previousNode = newObj
 			}
@@ -60,11 +65,11 @@ func (gb *GradeBook) add(node *DoubleLLNode, key string, isDone *bool) {
 			// Если такого ключа нет то, вставьте перед первым узлом у которого ключ больше
 		} else if el[0] > key && !isContains {
 			if node.previousNode == nil {
-				newObj := gb.dll.newNode(gb.createValueByKey(key), node, nil)
+				newObj := gb.dll.newNode(gb.createValuesByKey(key), node, nil)
 				node.previousNode = newObj
-				gb.dll.head = newObj
+				gb.dll.firstElement = newObj
 			} else {
-				newObj := gb.dll.newNode(gb.createValueByKey(key), node, node.previousNode)
+				newObj := gb.dll.newNode(gb.createValuesByKey(key), node, node.previousNode)
 				node.previousNode.nextNode = newObj
 				node.previousNode = newObj
 			}
@@ -73,7 +78,8 @@ func (gb *GradeBook) add(node *DoubleLLNode, key string, isDone *bool) {
 	}
 }
 
-func (gb *GradeBook) createValueByKey(key string) string {
+// Вспомогательная функция
+func (gb *GradeBook) createValuesByKey(key string) string {
 	var (
 		group int
 		mark  int

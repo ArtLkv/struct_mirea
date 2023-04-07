@@ -7,8 +7,8 @@ import (
 
 // Cтруктура, которая хранит в себе состояние LinkedList
 type LinkedList struct {
-	length int
-	head   *LLNode
+	length       int
+	firstElement *LLNode
 }
 
 // Cтруктура, которая хранит в себе состояние элемента LinkedList
@@ -20,8 +20,8 @@ type LLNode struct {
 // Метод добавления LLNode
 func (ll *LinkedList) Push(value string) {
 	ll.length += 1
-	temp := ll.newNode(value, ll.head)
-	ll.head = temp
+	temp := ll.newNode(value, ll.firstElement)
+	ll.firstElement = temp
 }
 
 // Метод поиска вхождений
@@ -44,10 +44,10 @@ func (ll *LinkedList) PrintSequence() {
 // Метод слияния всех узлов в один LinkedList
 func (ll *LinkedList) generateSequence() string {
 	seq := ""
-	if ll.head != nil {
-		seq = seq + fmt.Sprintf("%v->", ll.head.value)
-		if ll.head.nextNode != nil {
-			node := ll.head.nextNode
+	if ll.firstElement != nil {
+		seq = seq + fmt.Sprintf("%v->", ll.firstElement.value)
+		if ll.firstElement.nextNode != nil {
+			node := ll.firstElement.nextNode
 			for i := 0; i < ll.length; i++ {
 				if i+1 != ll.length-1 {
 					seq = seq + fmt.Sprintf("%v", node.value)
