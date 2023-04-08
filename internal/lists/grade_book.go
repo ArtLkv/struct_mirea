@@ -13,12 +13,13 @@ type GradeBook struct {
 func (gb *GradeBook) PushById(key string) {
 	isDone := false
 	node := gb.dll.firstElement
-	gb.dll.length += 1
+
 	if node != nil {
 		gb.addElementById(node, key, &isDone)
 		if node.nextNode != nil {
 			for i := 0; i < gb.dll.length; i++ {
 				if isDone {
+					gb.dll.length += 1
 					break
 				}
 				gb.addElementById(node.nextNode, key, &isDone)
@@ -125,4 +126,22 @@ func (gb *GradeBook) createValuesByKey(key string) string {
 	fmt.Print("\nВведите оценку: ")
 	fmt.Scan(&mark)
 	return fmt.Sprintf("[[%s], [%v, %v]]", key, group, mark)
+}
+
+// Создает новый список с оценками 'неуд'
+func (gb *GradeBook) CreateNewWithNegativeMarks(from *GradeBook, to *GradeBook) {
+	node := from.dll.firstElement
+	if node != nil {
+		for i := 0; i < from.dll.length; i++ {
+			val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
+			el := strings.Split(val, ", ")
+			if el[2] == "2" { // "неуд" == 2
+				to.dll.Push(fmt.Sprintf("[[%v], [%v, %v]]", el[0], el[1], el[2]))
+			}
+			if node.nextNode != nil {
+				node = node.nextNode
+			}
+		}
+	}
+
 }

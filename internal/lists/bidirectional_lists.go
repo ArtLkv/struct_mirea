@@ -2,7 +2,6 @@ package lists
 
 import (
 	"fmt"
-	"strings"
 )
 
 // Будет реализован вариант 1
@@ -21,54 +20,40 @@ func RunBidirectionalLists() {
 }
 
 func runTask() {
-	A := NewDoubleLinkedList()
+	// A := NewDoubleLinkedList()
 	// [Номер зачетной книжки], [Группа, оценка]
-	gradeBook := NewGradeBook(A)
+	A := NewGradeBook(NewDoubleLinkedList())
 
 	// Добавляем стартовые значения
-	A.Push("[[1], [31, 5]]")
-	A.Push("[[2], [27, 2]]")
-	A.Push("[[5], [1, 3]]")
-	A.Push("[[4], [15, 5]]")
+	A.dll.Push("[[1], [31, 5]]")
+	A.dll.Push("[[2], [27, 2]]")
+	A.dll.Push("[[5], [1, 3]]")
+	A.dll.Push("[[4], [15, 5]]")
 	fmt.Print("\n'A' изначальный: ")
-	A.PrintSequence()
+	A.dll.PrintSequence()
 
-	gradeBook.PushById("0")
+	A.PushById("0")
 	fmt.Print("\n'A' с добавлением по ключу 0: ")
-	A.PrintSequence()
-	gradeBook.PushById("4")
+	A.dll.PrintSequence()
+	A.PushById("4")
 	fmt.Print("\n'A' с добавлением по ключу 4: ")
-	A.PrintSequence()
+	A.dll.PrintSequence()
+	A.PushById("8")
+	fmt.Print("\n'A' с добавлением по ключу 8: ")
+	A.dll.PrintSequence()
 	fmt.Println()
-	gradeBook.DeleteByGroup("15")
+	A.DeleteByGroup("15")
 	fmt.Print("\n'A' после удаления по 15 номеру группы: ")
-	A.PrintSequence()
+	A.dll.PrintSequence()
 
-	B := NewDoubleLinkedList()
-	createNewDLLWithNegativeMarks(A, B)
-	gradeBook.DeleteByMark("2")
+	B := NewGradeBook(NewDoubleLinkedList())
+	B.CreateNewWithNegativeMarks(A, B)
+	A.DeleteByMark("2")
 	fmt.Println()
 	fmt.Print("\n'A' после удаления оценок 'неуд': ")
-	A.PrintSequence()
+	A.dll.PrintSequence()
 	fmt.Print("\n'B' список с оценками 'неуд': ")
-	B.PrintSequence()
-}
-
-func createNewDLLWithNegativeMarks(from *DoubleLinkedList, to *DoubleLinkedList) {
-	node := from.firstElement
-	if node != nil {
-		for i := 0; i < from.length; i++ {
-			val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
-			el := strings.Split(val, ", ")
-			if el[2] == "2" { // "неуд" == 2
-				to.Push(fmt.Sprintf("[[%v], [%v, %v]]", el[0], el[1], el[2]))
-			}
-			if node.nextNode != nil {
-				node = node.nextNode
-			}
-		}
-	}
-
+	B.dll.PrintSequence()
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)

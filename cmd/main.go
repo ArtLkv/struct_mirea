@@ -5,6 +5,7 @@ import (
 
 	"github.com/ArtLkv/struct_mirea/internal/algos"
 	"github.com/ArtLkv/struct_mirea/internal/lists"
+	"github.com/ArtLkv/struct_mirea/internal/stacks"
 	"github.com/ArtLkv/struct_mirea/pkg/utils"
 )
 
@@ -31,9 +32,11 @@ func main() {
 		algos.RunBinarySearch(slice)
 	case 6:
 		algos.RunStringSearch()
-	case 7:
+	case 71:
 		lists.RunUnidirectionalLists()
-	case 8:
+	case 72:
 		lists.RunBidirectionalLists()
+	case 8:
+		stacks.RunStack()
 	}
 }
