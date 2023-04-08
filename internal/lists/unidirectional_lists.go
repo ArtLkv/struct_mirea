@@ -16,31 +16,27 @@ func RunUnidirectionalLists() {
 		second_ll.Push(fmt.Sprintf("%v", rnd.Intn(100)))
 	}
 
-	fmt.Print("Первый список: ")
-	first_ll.PrintSequence()
-	fmt.Print("\nВторой список: ")
-	second_ll.PrintSequence()
+	fmt.Printf("Первый список: %v ", first_ll.GenerateSequence())
+	fmt.Printf("\nВторой список: %s ", second_ll.GenerateSequence())
 	// Проверка того добавляется ли корретно элемент в самое начало
 	first_ll.Push("101")
 	first_ll.Push("102")
-	fmt.Print("\nПервый список(После добавление элементов 101 и 102): ")
-	first_ll.PrintSequence()
+	fmt.Printf("\nПервый список(После добавление элементов 101 и 102): %s ", first_ll.GenerateSequence())
 
 	// Создание итогового списка (По варианту 1)
 	result_ll := NewLinkedList()
-	for _, v := range strings.Split(first_ll.generateSequence(), "->") {
+	for _, v := range strings.Split(first_ll.GenerateSequence(), "->") {
 		if !result_ll.IsFound(v) {
 			result_ll.Push(v)
 		}
 	}
 
-	for _, v := range strings.Split(second_ll.generateSequence(), "->") {
+	for _, v := range strings.Split(second_ll.GenerateSequence(), "->") {
 		if !result_ll.IsFound(v) {
 			result_ll.Push(v)
 		}
 	}
 
 	// Вывод итогового списка
-	fmt.Print("\nИтоговый список: ")
-	result_ll.PrintSequence()
+	fmt.Printf("\nИтоговый список: %s", result_ll.GenerateSequence())
 }

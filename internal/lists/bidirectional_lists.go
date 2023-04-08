@@ -29,31 +29,24 @@ func runTask() {
 	A.dll.Push("[[2], [27, 2]]")
 	A.dll.Push("[[5], [1, 3]]")
 	A.dll.Push("[[4], [15, 5]]")
-	fmt.Print("\n'A' изначальный: ")
-	A.dll.PrintSequence()
+	fmt.Printf("\n'A' изначальный: %v", A.dll.GenerateSequence())
 
 	A.PushById("0")
-	fmt.Print("\n'A' с добавлением по ключу 0: ")
-	A.dll.PrintSequence()
+	fmt.Print("\n'A' с добавлением по ключу 0: %v", A.dll.GenerateSequence())
 	A.PushById("4")
-	fmt.Print("\n'A' с добавлением по ключу 4: ")
-	A.dll.PrintSequence()
+	fmt.Printf("\n'A' с добавлением по ключу 4: %v", A.dll.GenerateSequence())
 	A.PushById("8")
-	fmt.Print("\n'A' с добавлением по ключу 8: ")
-	A.dll.PrintSequence()
+	fmt.Printf("\n'A' с добавлением по ключу 8: %v", A.dll.GenerateSequence())
 	fmt.Println()
 	A.DeleteByGroup("15")
-	fmt.Print("\n'A' после удаления по 15 номеру группы: ")
-	A.dll.PrintSequence()
+	fmt.Printf("\n'A' после удаления по 15 номеру группы: %v", A.dll.GenerateSequence())
 
 	B := NewGradeBook(NewDoubleLinkedList())
 	B.CreateNewWithNegativeMarks(A, B)
 	A.DeleteByMark("2")
 	fmt.Println()
-	fmt.Print("\n'A' после удаления оценок 'неуд': ")
-	A.dll.PrintSequence()
-	fmt.Print("\n'B' список с оценками 'неуд': ")
-	B.dll.PrintSequence()
+	fmt.Printf("\n'A' после удаления оценок 'неуд': %v", A.dll.GenerateSequence())
+	fmt.Printf("\n'B' список с оценками 'неуд': %v", B.dll.GenerateSequence())
 }
 
 // Код ниже - проверка работоспособности структуры DoubleLinkedList(не относится к реализации задачи)
@@ -72,11 +65,9 @@ func testDoubleLinkedList() {
 }
 
 func outputDoubleLinkedList(dll *DoubleLinkedList, listNumber int) {
-	fmt.Printf("\n(%v)Список с прямым направлением: ", listNumber)
-	dll.PrintSequence()
+	fmt.Printf("\n(%v)Список с прямым направлением: %v", listNumber, dll.GenerateSequence())
 	dll.ChangeDirection()
-	fmt.Printf("\n(%v)Список с обратным направлением: ", listNumber)
-	dll.PrintSequence()
+	fmt.Printf("\n(%v)Список с обратным направлением: %v", listNumber, dll.GenerateSequence())
 }
 
 func findValue(dll *DoubleLinkedList, value string, listNumber int) {

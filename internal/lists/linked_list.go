@@ -1,7 +1,6 @@
 package lists
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -26,7 +25,7 @@ func (ll *LinkedList) Push(value string) {
 
 // Метод поиска вхождений
 func (ll *LinkedList) IsFound(value string) bool {
-	seq := ll.generateSequence()
+	seq := ll.GenerateSequence()
 	for _, el := range strings.Split(seq, "->") {
 		if el == value {
 			return true
@@ -35,26 +34,23 @@ func (ll *LinkedList) IsFound(value string) bool {
 	return false
 }
 
-// Метод вывода LinkedList
-func (ll *LinkedList) PrintSequence() {
-	seq := ll.generateSequence()
-	fmt.Print(seq)
-}
-
-// Метод слияния всех узлов в один LinkedList
-func (ll *LinkedList) generateSequence() string {
+// Метод слияния всех LLNode в один LinkedList
+func (ll *LinkedList) GenerateSequence() string {
 	seq := ""
 	if ll.firstElement != nil {
-		seq = seq + fmt.Sprintf("%v->", ll.firstElement.value)
+		seq = seq + ll.firstElement.value
 		if ll.firstElement.nextNode != nil {
+			seq = seq + "->"
 			node := ll.firstElement.nextNode
 			for i := 0; i < ll.length; i++ {
 				if i+1 != ll.length-1 {
-					seq = seq + fmt.Sprintf("%v", node.value)
+					seq = seq + node.value
 					if i+1 < ll.length {
 						seq = seq + "->"
 					}
-					node = node.nextNode
+					if node.nextNode != nil {
+						node = node.nextNode
+					}
 				}
 			}
 		}

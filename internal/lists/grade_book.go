@@ -85,7 +85,7 @@ func (gb *GradeBook) addElementById(node *DoubleLLNode, key string, isDone *bool
 	if node != nil {
 		val := strings.ReplaceAll(strings.ReplaceAll(node.value, "[", ""), "]", "")
 		el := strings.Split(val, ", ")
-		isContains := strings.Contains(gb.dll.generateSequence(), fmt.Sprintf("[%v]", key))
+		isContains := strings.Contains(gb.dll.GenerateSequence(), fmt.Sprintf("[%v]", key))
 
 		// Если такой ключ есть, то вставить перед первым узлом с таким же ключем
 		if el[0] == key && isContains {

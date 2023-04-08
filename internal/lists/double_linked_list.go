@@ -1,9 +1,5 @@
 package lists
 
-import (
-	"fmt"
-)
-
 // Cтруктура, которая хранит в себе состояние DoubleLinkedList
 type DoubleLinkedList struct {
 	length       int
@@ -78,14 +74,8 @@ func (dll *DoubleLinkedList) Find(value string) *DoubleLLNode {
 	return nil
 }
 
-// Метод вывода DoubleLinkedList
-func (dll *DoubleLinkedList) PrintSequence() {
-	seq := dll.generateSequence()
-	fmt.Print(seq)
-}
-
 // Метод слияния всех узлов в один DoubleLinkedList
-func (dll *DoubleLinkedList) generateSequence() string {
+func (dll *DoubleLinkedList) GenerateSequence() string {
 	seq := ""
 	if dll.direction == 0 {
 		if dll.firstElement != nil {
