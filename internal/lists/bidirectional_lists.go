@@ -32,7 +32,7 @@ func runTask() {
 	fmt.Printf("\n'A' изначальный: %v", A.dll.GenerateSequence())
 
 	A.PushById("0")
-	fmt.Print("\n'A' с добавлением по ключу 0: %v", A.dll.GenerateSequence())
+	fmt.Printf("\n'A' с добавлением по ключу 0: %v", A.dll.GenerateSequence())
 	A.PushById("4")
 	fmt.Printf("\n'A' с добавлением по ключу 4: %v", A.dll.GenerateSequence())
 	A.PushById("8")
